@@ -25,7 +25,6 @@ def main():
 
 def nonCluster(args):
 	print 'Running'
-	print __file__
 	if not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
@@ -38,10 +37,6 @@ def nonCluster(args):
 			os.exit()
 		
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', args.i, '-o',  args.o,  '-m', args.t]);
-
-
-def cluster(args):
-	print 'cluster version'
 
 
 if __name__ == "__main__":
