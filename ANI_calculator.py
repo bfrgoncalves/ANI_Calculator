@@ -26,8 +26,8 @@ def main():
 def nonCluster(args):
 	print 'Running'
 	print __file__
-	if not os.path.isdir(os.path.join(__file__,'InputFiles')):
-		os.makedirs(os.path.join(__file__,'InputFiles'))
+	if not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
+		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
 	if args.d:
 		subprocess.call(['python', 'dwnFTP/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
