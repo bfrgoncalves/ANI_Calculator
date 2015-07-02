@@ -7,6 +7,7 @@
 This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloads a group of files by syncronizing to `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` and by searching for the *DOWNLOADTOKEN*
 
 optional arguments:
+ 
   -h show this help message and exit
 
   -d DOWNLOADTOKEN 
