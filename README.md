@@ -15,8 +15,10 @@ optional arguments:
 
   -o OUTDIRNAME 
   			Output directory
+  
   -i INDIRNAME INDIRNAME
             Input directory name
+  
   -m METHOD
   			Method to use (ANIm or ANIb)
 
