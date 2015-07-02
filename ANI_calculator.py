@@ -30,7 +30,7 @@ def nonCluster(args):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
 	if args.d:
-		subprocess.call(['python', 'dwnFTP/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
+		subprocess.call(['python', 'dwnFTP_version2/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t]);
 	else:
 		if not args.i:
