@@ -3,7 +3,7 @@ import argparse
 import os
 import shutil
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, isdir
 
 
 def main():
@@ -25,6 +25,10 @@ def main():
 
 def nonCluster(args):
 	print 'Running'
+	print __file__
+	if not os.path.isdir(os.path.join(__file__,'InputFiles')):
+		os.makedirs(os.path.join(__file__,'InputFiles'))
+	
 	if args.d:
 		subprocess.call(['python', 'dwnFTP/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t]);
