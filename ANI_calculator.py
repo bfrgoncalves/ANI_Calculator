@@ -34,3 +34,7 @@ def nonCluster(args):
 
 def cluster(args):
 	print 'cluster version'
+
+
+if __name__ == "__main__":
+    main()
