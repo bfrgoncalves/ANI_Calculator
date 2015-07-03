@@ -39,6 +39,8 @@ for item in dirs:
 		print "----------------------------------------------"
 		print "Dir: " + item
 		#create the dir
+		biggestFnaFile = '';
+		currentTopSize = 0;
 		if not os.path.isdir(os.path.join(target_dir,target_bug)):
 			print "Dir not found. Creating it..."
 			os.makedirs(os.path.join(target_dir,target_bug))
@@ -49,30 +51,38 @@ for item in dirs:
 			files=f.nlst(file_type)
 			for fi in files:
 				local_file = os.path.join(target_dir,target_bug,fi)
-				if os.path.isfile(local_file):
-					print "Dir:" + item	
-					print "File " + local_file + " already exists."
-					#get remote modification time			
-					mt = f.sendcmd('MDTM '+ fi)
-					#converting to timestamp
-					nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
+				f.sendcmd("TYPE i") 
+				statSize = f.size(fi)
+				f.sendcmd("TYPE A")
+				
+				if statSize > currentTopSize: #Checks for the biggest fna file to download. Rejects small files like plasmids
+					currentTopSize = statSize
+					biggestFnaFile = local_file
 
-					if int(nt)==int(os.stat(local_file).st_mtime):
-						print fi +" not modified. Download skipped"
-					else:
-						print "New version of "+fi
-						ct+=1
-						DownloadAndSetTimestamp(local_file,fi,nt)
-						print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
-						print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
+			if os.path.isfile(local_file):
+				print "Dir:" + item	
+				print "File " + local_file + " already exists."
+				#get remote modification time			
+				mt = f.sendcmd('MDTM '+ fi)
+				#converting to timestamp
+				nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
 
+				if int(nt)==int(os.stat(local_file).st_mtime):
+					print fi +" not modified. Download skipped"
 				else:
-					print "New file: "+fi
+					print "New version of "+fi
 					ct+=1
-					mt = f.sendcmd('MDTM '+ fi)
-					#converting to timestamp
-					nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
 					DownloadAndSetTimestamp(local_file,fi,nt)
+					print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
+					print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
+
+			else:
+				print "New file: "+fi
+				ct+=1
+				mt = f.sendcmd('MDTM '+ fi)
+				#converting to timestamp
+				nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
+				DownloadAndSetTimestamp(local_file,fi,nt)
 		except ftplib.error_temp,  resp:
 			if str(resp) == "450 No files found":
 				print "No "+ file_type +" files in this directory. Skipping"

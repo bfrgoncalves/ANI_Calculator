@@ -24,6 +24,6 @@ optional arguments:
 
 # Example of usage
 
-`python ANI_calculator.py -d Haemophilus_influenzae -o output -c False -t ANIm`
+`python ANI_calculator.py -d Haemophilus_influenzae -o output -t ANIm`
 
 Downloads all the *fna* files from *Haemophilus influenzae* and then runs the *ANIm* method. The results will go to the *output* directory.

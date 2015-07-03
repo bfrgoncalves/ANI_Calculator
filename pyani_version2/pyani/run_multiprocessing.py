@@ -14,7 +14,6 @@ Python's multiprocessing module to distribute command-line jobs.
 import multiprocessing
 import subprocess
 import sys
-
 CUMRETVAL = 0
 
 

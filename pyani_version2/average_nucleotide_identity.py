@@ -159,6 +159,7 @@ import os
 import shutil
 import sys
 import traceback
+import time
 
 from argparse import ArgumentParser
 
@@ -325,7 +326,9 @@ def calculate_anim(infiles, org_lengths):
         logger.info("NUCmer commands:\n" + os.linesep.join(cmdlist))
         if args.scheduler == 'multiprocessing':
             logger.info("Running jobs with multiprocessing")
+            start_time = time.time()
             cumval = multiprocessing_run(cmdlist, verbose=args.verbose)
+            print time.time() - start_time
             logger.info("Cumulative return value: %d" % cumval)
             if 0 < cumval:
                 logger.warning("At least one NUCmer comparison failed. " +
@@ -472,7 +475,9 @@ def unified_anib(infiles, org_lengths):
         logger.info("Generated commands:\n%s" % '\n'.join(cmdlist))
         if args.scheduler == 'multiprocessing':
             logger.info("Running jobs with multiprocessing")
+
             cumval = multiprocessing_run(cmdlist, verbose=args.verbose)
+
             logger.info("Cumulative return value: %d" % cumval)
             if 0 < cumval:
                 logger.warning("At least one BLASTN comparison failed. " +
