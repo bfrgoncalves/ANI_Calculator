@@ -27,3 +27,20 @@ optional arguments:
 `python ANI_calculator.py -d Haemophilus_influenzae -o output -t ANIm`
 
 Downloads all the *fna* files from *Haemophilus influenzae* and then runs the *ANIm* method. The results will go to the *output* directory.
+
+
+#Dependencies
+
+For ANI analysis
+
+* Biopython http://www.biopython.org
+
+* NumPy http://www.numpy.org/
+
+* pandas http://pandas.pydata.org/
+
+* SciPy http://www.scipy.org/
+
+* BLAST+ executable in the $PATH, or available on the command line (required for ANIb analysis) ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/
+
+* MUMmer executables in the $PATH, or available on the command line (required for ANIm analysis) http://mummer.sourceforge.net/
