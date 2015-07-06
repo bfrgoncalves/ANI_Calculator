@@ -66,8 +66,8 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
     ##logger.info("Processing input sequence lengths")
     org_lengths = pyani_files.get_sequence_lengths(infiles)
     #logger.info("Sequence lengths:\n" +
-                os.linesep.join(["\t%s: %d" % (k, v) for
-                                 k, v in org_lengths.items()]))
+                #os.linesep.join(["\t%s: %d" % (k, v) for
+                                 #k, v in org_lengths.items()]))
 
     # Run appropriate method on the contents of the input directory,
     # and write out corresponding results.
