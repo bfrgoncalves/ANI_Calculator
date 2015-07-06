@@ -139,7 +139,7 @@ def calculate_anim(infiles, org_lengths):
         else:
             #logger.info("Running jobs with SGE")
             raise NotImplementedError
-    else:
+    #else:
         #logger.warning("Skipping NUCmer run (as instructed)!")
 
     # Process resulting .delta files
