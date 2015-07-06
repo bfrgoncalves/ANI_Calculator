@@ -51,7 +51,7 @@ def cluster(args):
 	allQueryBasePaths = []
 
 	countFiles = len(onlyfiles)
-	for i in range(0,countfiles-1):
+	for i in range(0,countFiles-1):
 		for j in range(i+1, countFiles):
 			ComparisonsToMake.append(onlyfiles[i] + '--' + onlyfiles[j])
 
