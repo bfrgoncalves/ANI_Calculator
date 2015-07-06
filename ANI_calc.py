@@ -21,11 +21,11 @@ def main():
 
 
 	def ANI_calc(args):
-	    ANI_results = func_ANI_calc(args[0], args[1], args[2])
+	    ANI_results = func_ANI_calc(args[0], args[1], args[2], args[3], args[4])
 
 	    final =	(args[0], ANI_results)
 
-	    filepath=os.path.join(temppath , str(args[1])+"_ANI_result.txt")
+	    filepath=os.path.join(temppath , str(args[4])+ '_' + str(args[1]) +"_ANI_result.txt")
 
 	    with open(filepath, 'wb') as f:
 			pickle.dump(final, f)

@@ -11,7 +11,7 @@ from pyani.run_multiprocessing import multiprocessing_run
 from pyani.pyani_config import params_mpl, params_r
 
 
-def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler):
+def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countComparisons):
 
     # Have we got a valid method choice?
     # Dictionary below defines analysis function, and output presentation
