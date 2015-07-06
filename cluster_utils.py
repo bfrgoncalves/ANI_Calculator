@@ -4,13 +4,13 @@ import sys
 import pickle
 import os
 
-def create_pickle(listOfArgs, queryFolder, job_args, action, identifier, allQueryBasePaths):
+def create_pickle(listOfArgs, queryFolder, job_args, action, identifier, allQueryBasePaths, numberOfqueries):
 
 	basepath=os.path.join(queryFolder, "temp")
 	allQueryBasePaths.append(basepath)
 	if not os.path.exists(basepath):
 		os.makedirs(basepath)
-	filepath=os.path.join(basepath, identifier +'_'+action+"_argList.txt")
+	filepath=os.path.join(basepath, identifier + '_' + str(numberOfqueries) + '_' + action+"_argList.txt")
 	with open(filepath, 'wb') as f:
 		var = listOfArgs
 		pickle.dump(var, f)

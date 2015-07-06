@@ -38,20 +38,28 @@ def cluster(args):
 	listOfArgs = (args.d, inputDir, '*.fna')
 	print listOfArgs
 	action = 'dwnFTP'
-	job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths)
+	job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
 	print job_args, allQueryBasePaths
 	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
 
+	ComparisonsToMake = []
+	countComparisons = 0
+	job_args = []
+	allQueryBasePaths = []
+
 	for i in onlyfiles:
 		for j in onlyfiles:
-			nameI = i.split('.')[0]
-			nameJ = j.split('.')[0]
-			fullName = nameI + '_vs_' + nameJ
-			if not os.path.isdir(os.path.join(inputDir,fullName)):
-				print "Dir not found. Creating it..."
-				os.makedirs(os.path.join(inputDir,fullName))
+			ComparisonsToMake.append(i + '--' + j)
+
+	for comparison in ComparisonsToMake:
+		countComparisons += 1
+		listOfArgs = (comparison, args.t, 'multiprocessing', countComparisons)
+		action = 'ANIcalc'
+		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, comparison, allQueryBasePaths, countComparisons)
+
+
 
 	########## FAZER PARTE DO ANI ##############################
 
