@@ -88,7 +88,7 @@ def cluster(args):
 
 	for i in onlyfiles:
 		toAppend = []
-		toApend.append(i)
+		toAppend.append(i)
 		for j in onlyfiles:
 			toAppend.append(dictOfResults[i][0][j])
 		finalResults.append(toAppend)
