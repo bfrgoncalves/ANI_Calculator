@@ -17,63 +17,6 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
     # Dictionary below defines analysis function, and output presentation
     # functions/settings, dependent on selected method.
 
-    skip_nucmer = False
-    skip_blastn = False
-    nucmer_exe = pyani_config.NUCMER_DEFAULT
-    maxmatch = False
-    verbose = False
-    fragsize = pyani_config.FRAGSIZE
-    formatdb_exe = pyani_config.FORMATDB_DEFAULT
-    blastall_exe = pyani_config.BLASTALL_DEFAULT
-    makeblastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
-    blastn_exe = pyani_config.BLASTN_DEFAULT
-    outdirname = os.path.join(InputFilesDir, 'Results', comparisonToMake)
-
-    if not os.path.isdir(os.path.join(outdirname)):
-        os.makedirs(os.path.join(outdirname))
-
-    methods = {"ANIm": (calculate_anim, pyani_config.ANIM_FILESTEMS),
-               "ANIb": (unified_anib, pyani_config.ANIB_FILESTEMS)
-              }
-
-    if method not in methods:
-        #logger.error("ANI method %s not recognised (exiting)" % method)
-        #logger.error("Valid methods are: %s" % methods.keys())
-        sys.exit(1)
-    #logger.info("Using ANI method: %s" % method)
-
-    # Have we got a valid scheduler choice?
-    schedulers = ["multiprocessing", "SGE"]
-    
-    if scheduler not in schedulers:
-        #logger.error("scheduler %s not recognised (exiting)" % scheduler)
-        #logger.error("Valid schedulers are: %s" % '; '.join(schedulers))
-        sys.exit(1)
-    #logger.info("Using scheduler method: %s" % scheduler)
-
-    # Get input files
-    ##logger.info("Identifying FASTA files in %s" % args.indirname)
-    infiles = []
-    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[0]))
-    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[1]))
-
-    #infiles = pyani_files.get_fasta_files(comparisonDir)
-    #logger.info("Input files:\n\t%s" % '\n\t'.join(infiles))
-
-    # Get lengths of input sequences
-    ##logger.info("Processing input sequence lengths")
-    org_lengths = pyani_files.get_sequence_lengths(infiles)
-    #logger.info("Sequence lengths:\n" +
-                #os.linesep.join(["\t%s: %d" % (k, v) for
-                                 #k, v in org_lengths.items()]))
-
-    # Run appropriate method on the contents of the input directory,
-    # and write out corresponding results.
-    #logger.info("Carrying out %s analysis" % method)
-    results = methods[method][0](infiles, org_lengths)
-
-    return results
-
 
     # Read sequence annotations in from file
     def get_labels(filename):
@@ -279,3 +222,63 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
                                  #"being too distant for use.")
             #logger.error(last_exception())
         return data
+
+    skip_nucmer = False
+    skip_blastn = False
+    nucmer_exe = pyani_config.NUCMER_DEFAULT
+    maxmatch = False
+    verbose = False
+    fragsize = pyani_config.FRAGSIZE
+    formatdb_exe = pyani_config.FORMATDB_DEFAULT
+    blastall_exe = pyani_config.BLASTALL_DEFAULT
+    makeblastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
+    blastn_exe = pyani_config.BLASTN_DEFAULT
+    outdirname = os.path.join(InputFilesDir, 'Results', comparisonToMake)
+
+    if not os.path.isdir(os.path.join(outdirname)):
+        os.makedirs(os.path.join(outdirname))
+
+    methods = {"ANIm": (calculate_anim, pyani_config.ANIM_FILESTEMS),
+               "ANIb": (unified_anib, pyani_config.ANIB_FILESTEMS)
+              }
+
+    if method not in methods:
+        #logger.error("ANI method %s not recognised (exiting)" % method)
+        #logger.error("Valid methods are: %s" % methods.keys())
+        sys.exit(1)
+    #logger.info("Using ANI method: %s" % method)
+
+    # Have we got a valid scheduler choice?
+    schedulers = ["multiprocessing", "SGE"]
+    
+    if scheduler not in schedulers:
+        #logger.error("scheduler %s not recognised (exiting)" % scheduler)
+        #logger.error("Valid schedulers are: %s" % '; '.join(schedulers))
+        sys.exit(1)
+    #logger.info("Using scheduler method: %s" % scheduler)
+
+    # Get input files
+    ##logger.info("Identifying FASTA files in %s" % args.indirname)
+    infiles = []
+    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[0]))
+    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[1]))
+
+    #infiles = pyani_files.get_fasta_files(comparisonDir)
+    #logger.info("Input files:\n\t%s" % '\n\t'.join(infiles))
+
+    # Get lengths of input sequences
+    ##logger.info("Processing input sequence lengths")
+    org_lengths = pyani_files.get_sequence_lengths(infiles)
+    #logger.info("Sequence lengths:\n" +
+                #os.linesep.join(["\t%s: %d" % (k, v) for
+                                 #k, v in org_lengths.items()]))
+
+    # Run appropriate method on the contents of the input directory,
+    # and write out corresponding results.
+    #logger.info("Carrying out %s analysis" % method)
+    results = methods[method][0](infiles, org_lengths)
+
+    return results
+
+
+    
