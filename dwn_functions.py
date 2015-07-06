@@ -14,8 +14,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
         lf.close()
         print fi + " downloaded!"
 
-    #set the modification time the same as server for future comparison
-    os.utime(local_file,( int(nt) , int(nt) ))
+        #set the modification time the same as server for future comparison
+        os.utime(local_file,( int(nt) , int(nt) ))
 
     print "Connecting to ftp.ncbi.nih.gov..."   
     f=ftplib.FTP('ftp.ncbi.nih.gov')
