@@ -77,7 +77,7 @@ def cluster(args):
 			for j in indexes:
 				try:
 					dictOfResults[i][0][j] = x[1][1][i][j]
-				except IndexError:
+				except KeyError:
 					dictOfResults[i] = []
 					dictOfResults[i][0] = {}
 					dictOfResults[i][0][j] = x[1][1][i][j]
