@@ -79,7 +79,7 @@ def cluster(args):
 					dictOfResults[i][0][j] = x[1][1][i][j]
 				except KeyError:
 					dictOfResults[i] = []
-					dictOfResults[i][0] = {}
+					dictOfResults[i].append({})
 					dictOfResults[i][0][j] = x[1][1][i][j]
 
 	print dictOfResults
