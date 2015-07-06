@@ -90,7 +90,9 @@ def cluster(args):
 		toAppend = []
 		toAppend.append(i)
 		for j in onlyfiles:
-			toAppend.append(dictOfResults[i][0][j])
+			tocheck1 = i.split('.')[0]
+			tocheck2 = i.split('.')[0]
+			toAppend.append(dictOfResults[tocheck1][0][tocheck2])
 		finalResults.append(toAppend)
 
 	print finalResults
