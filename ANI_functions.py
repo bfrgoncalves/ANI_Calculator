@@ -31,7 +31,7 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
 
     outdirname = os.path.join(InputFilesDir, Results, comparisonToMake)
 
-    if not os.path.isdir(os.path.join(outdirname):
+    if not os.path.isdir(os.path.join(outdirname)):
         os.makedirs(os.path.join(outdirname)
 
 
