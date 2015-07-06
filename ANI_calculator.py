@@ -47,7 +47,7 @@ def cluster(args):
 	for i in onlyfiles:
 		for j in onlyfiles:
 			nameI = i.split('.')[0]
-			nameJ = i.split('.')[1]
+			nameJ = i.split('.')[0]
 			fullName = nameI + '_vs_' + nameJ
 			if not os.path.isdir(os.path.join(inputDir,fullName)):
 				print "Dir not found. Creating it..."
