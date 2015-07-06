@@ -7,6 +7,7 @@ from os import listdir
 from os.path import isfile, join, isdir
 
 from cluster_utils import create_pickle, create_Jobs
+import pickle
 
 
 def main():
