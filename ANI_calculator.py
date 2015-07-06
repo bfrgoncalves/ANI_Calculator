@@ -50,9 +50,10 @@ def cluster(args):
 	job_args = []
 	allQueryBasePaths = []
 
-	for i in onlyfiles:
-		for j in onlyfiles:
-			ComparisonsToMake.append(i + '--' + j)
+	countFiles = len(onlyFiles)
+	for i in range(0,countFiles-1):
+		for j in range(i+1, countFiles):
+			ComparisonsToMake.append(onlyFiles[i] + '--' + onlyFiles[j])
 
 	for comparison in ComparisonsToMake:
 		countComparisons += 1
@@ -70,7 +71,8 @@ def cluster(args):
 		with open(filepath,'rb') as f:
 			x = pickle.load(f)
 
-		print x[1][1]
+		for i in x[1][1]:
+			print i
 
 
 	########## FAZER PARTE DO ANI ##############################
