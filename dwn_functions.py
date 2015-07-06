@@ -9,10 +9,10 @@ def func_dwnFTP(target_bug, target_dir, file_type):
     
 
     def DownloadAndSetTimestamp(local_file,fi,nt):
-    lf=open(local_file,'wb')
-    f.retrbinary("RETR " + fi, lf.write, 8*1024)
-    lf.close()
-    print fi + " downloaded!"
+        lf=open(local_file,'wb')
+        f.retrbinary("RETR " + fi, lf.write, 8*1024)
+        lf.close()
+        print fi + " downloaded!"
 
     #set the modification time the same as server for future comparison
     os.utime(local_file,( int(nt) , int(nt) ))
