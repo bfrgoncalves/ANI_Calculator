@@ -64,6 +64,7 @@ def cluster(args):
 	create_Jobs(job_args, 'ANI_calc.py', allQueryBasePaths)
 
 	countResults = 0
+	dictOfResults = {}
 	for i in allQueryBasePaths:
 		countResults += 1
 		filepath=os.path.join( i,str(countResults)+"_"+ action + "_result.txt")
@@ -73,6 +74,9 @@ def cluster(args):
 
 		for i in x[1][1]:
 			print x[1][1][i]
+			for j in x[1][1][i]:
+				print j
+				print x[1][1][i][j]
 
 
 	########## FAZER PARTE DO ANI ##############################
