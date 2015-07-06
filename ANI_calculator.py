@@ -76,7 +76,6 @@ def cluster(args):
 			print x[1][1][i]
 			for j in x[1][1][i]:
 				print j
-				print x[1][1][i][j]
 
 
 	########## FAZER PARTE DO ANI ##############################
