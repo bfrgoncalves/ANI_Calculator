@@ -25,7 +25,7 @@ def main():
 
 	    final =	(args[0], ANI_results)
 
-	    filepath=os.path.join(temppath , str(args[4])+ '_' + str(args[1]) +"_ANI_result.txt")
+	    filepath=os.path.join(temppath , str(args[4]) +"ANIcalc_result.txt")
 
 	    with open(filepath, 'wb') as f:
 			pickle.dump(final, f)
