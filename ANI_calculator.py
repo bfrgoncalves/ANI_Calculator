@@ -99,7 +99,7 @@ def cluster(args):
 	lf=open('resultados.tab','w')
 
 	for i in finalResults:
-		lf.write('\t'.join([str(x) for x in finalResults[i]]))
+		lf.write('\t'.join([str(x) for x in i]))
 
 	lf.close()
 
