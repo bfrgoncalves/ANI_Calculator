@@ -97,9 +97,10 @@ def cluster(args):
 
 
 	lf=open('resultados.tab','w')
-
+	lf.write('\t')
 	for i in finalResults:
 		lf.write('\t'.join([str(x) for x in i]))
+		lf.write('\n')
 
 	lf.close()
 
