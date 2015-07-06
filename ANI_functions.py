@@ -16,24 +16,45 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
     # Have we got a valid method choice?
     # Dictionary below defines analysis function, and output presentation
     # functions/settings, dependent on selected method.
+
+    skip_nucmer = False
+    skip_blastn = False
+    nucmer_exe = pyani_config.NUCMER_DEFAULT
+    maxmatch = False
+    verbose = False
+    fragsize = pyani_config.FRAGSIZE
+    formatdb_exe = pyani_config.FORMATDB_DEFAULT
+    blastall_exe = pyani_config.BLASTALL_DEFAULT
+    makeblastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
+    blastn_exe = pyani_config.BLASTN_DEFAULT
+
+
+    outdirname = os.path.join(InputFilesDir, Results, comparisonToMake)
+
+    if not os.path.isdir(os.path.join(outdirname):
+        os.makedirs(os.path.join(outdirname)
+
+
+
+
     methods = {"ANIm": (calculate_anim, pyani_config.ANIM_FILESTEMS),
                "ANIb": (unified_anib, pyani_config.ANIB_FILESTEMS)
               }
 
     if method not in methods:
-        logger.error("ANI method %s not recognised (exiting)" % args.method)
+        logger.error("ANI method %s not recognised (exiting)" % method)
         logger.error("Valid methods are: %s" % methods.keys())
         sys.exit(1)
-    logger.info("Using ANI method: %s" % args.method)
+    logger.info("Using ANI method: %s" % method)
 
     # Have we got a valid scheduler choice?
     schedulers = ["multiprocessing", "SGE"]
     
     if scheduler not in schedulers:
-        logger.error("scheduler %s not recognised (exiting)" % args.scheduler)
+        logger.error("scheduler %s not recognised (exiting)" % scheduler)
         logger.error("Valid schedulers are: %s" % '; '.join(schedulers))
         sys.exit(1)
-    logger.info("Using scheduler method: %s" % args.scheduler)
+    logger.info("Using scheduler method: %s" % scheduler)
 
     # Get input files
     #logger.info("Identifying FASTA files in %s" % args.indirname)
@@ -53,8 +74,8 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
 
     # Run appropriate method on the contents of the input directory,
     # and write out corresponding results.
-    logger.info("Carrying out %s analysis" % args.method)
-    results = methods[args.method][0](infiles, org_lengths)
+    logger.info("Carrying out %s analysis" % method)
+    results = methods[method][0](infiles, org_lengths)
 
     return results
 
@@ -104,14 +125,14 @@ def calculate_anim(infiles, org_lengths):
     logger.info("Running ANIm")
     logger.info("Generating NUCmer command-lines")
     # Schedule NUCmer runs
-    if not args.skip_nucmer:
-        cmdlist = anim.generate_nucmer_commands(infiles, args.outdirname,
-                                                nucmer_exe=args.nucmer_exe,
-                                                maxmatch=args.maxmatch)
+    if not skip_nucmer:
+        cmdlist = anim.generate_nucmer_commands(infiles, outdirname,
+                                                nucmer_exe=nucmer_exe,
+                                                maxmatch=maxmatch)
         logger.info("NUCmer commands:\n" + os.linesep.join(cmdlist))
-        if args.scheduler == 'multiprocessing':
+        if scheduler == 'multiprocessing':
             logger.info("Running jobs with multiprocessing")
-            cumval = multiprocessing_run(cmdlist, verbose=args.verbose)
+            cumval = multiprocessing_run(cmdlist, verbose=verbose)
             logger.info("Cumulative return value: %d" % cumval)
             if 0 < cumval:
                 logger.warning("At least one NUCmer comparison failed. " +
@@ -127,10 +148,10 @@ def calculate_anim(infiles, org_lengths):
     # Process resulting .delta files
     logger.info("Processing NUCmer .delta files.")
     try:
-        data = anim.process_deltadir(args.outdirname, org_lengths)
+        data = anim.process_deltadir(outdirname, org_lengths)
     except ZeroDivisionError:
         logger.error("One or more NUCmer output files has a problem.")
-        if not args.skip_nucmer:
+        if not skip_nucmer:
             if 0 < cumval:
                 logger.error("This is possibly due to NUCmer run failure, " +
                              "please investigate")
@@ -175,43 +196,43 @@ def unified_anib(infiles, org_lengths):
     each genome, for each pairwise comparison. These are written to the
     output directory in plain text tab-separated format.
     """
-    logger.info("Running %s" % args.method)
+    logger.info("Running %s" % method)
     # Build BLAST databases and run pairwise BLASTN
-    if not args.skip_blastn:
+    if not skip_blastn:
         # Make sequence fragments
         logger.info("Fragmenting input files, and writing to %s" %
-                    args.outdirname)
+                    outdirname)
         # Fraglengths does not get reused with BLASTN
         fragfiles, fraglengths = anib.fragment_FASTA_files(infiles,
-                                                           args.outdirname,
-                                                           args.fragsize)
+                                                           outdirname,
+                                                           fragsize)
         # Export fragment lengths as JSON, in case we re-run BLASTALL with
         # --skip_blastn
-        if args.method == "ANIblastall":
-            with open(os.path.join(args.outdirname,
+        if method == "ANIblastall":
+            with open(os.path.join(outdirname,
                                    'fraglengths.json'), 'w') as outfile:
                 json.dump(fraglengths, outfile)
 
         # Which executables are we using?
-        if args.method == "ANIblastall":
-            blastdb_exe = args.formatdb_exe
-            blastn_exe = args.blastall_exe
+        if method == "ANIblastall":
+            blastdb_exe = formatdb_exe
+            blastn_exe = blastall_exe
         else:
-            blastdb_exe = args.makeblastdb_exe
-            blastn_exe = args.blastn_exe
+            blastdb_exe = makeblastdb_exe
+            blastn_exe = blastn_exe
 
         # Build BLASTN databases
-        logger.info("Constructing %s BLAST databases" % args.method)
-        cmdlist = anib.generate_blastdb_commands(infiles, args.outdirname,
+        logger.info("Constructing %s BLAST databases" % method)
+        cmdlist = anib.generate_blastdb_commands(infiles, outdirname,
                                                  blastdb_exe=blastdb_exe,
-                                                 mode=args.method)
+                                                 mode=method)
         logger.info("Generated commands:\n%s" % '\n'.join(cmdlist))
-        if args.scheduler == 'multiprocessing':
+        if scheduler == 'multiprocessing':
             logger.info("Running jobs with multiprocessing")
-            cumval = multiprocessing_run(cmdlist, verbose=args.verbose)
+            cumval = multiprocessing_run(cmdlist, verbose=verbose)
             if 0 < cumval:
                 logger.warning("At least one makeblastdb run failed. " +
-                               "%s may fail." % args.method)
+                               "%s may fail." % method)
             else:
                 logger.info("All multiprocessing jobs complete.")
         else:
@@ -219,17 +240,17 @@ def unified_anib(infiles, org_lengths):
             raise NotImplementedError
 
         # Run pairwise BLASTN
-        logger.info("Running %s BLASTN jobs" % args.method)
-        cmdlist = anib.generate_blastn_commands(fragfiles, args.outdirname,
-                                                blastn_exe, mode=args.method)
+        logger.info("Running %s BLASTN jobs" % method)
+        cmdlist = anib.generate_blastn_commands(fragfiles, outdirname,
+                                                blastn_exe, mode=method)
         logger.info("Generated commands:\n%s" % '\n'.join(cmdlist))
-        if args.scheduler == 'multiprocessing':
+        if scheduler == 'multiprocessing':
             logger.info("Running jobs with multiprocessing")
-            cumval = multiprocessing_run(cmdlist, verbose=args.verbose)
+            cumval = multiprocessing_run(cmdlist, verbose=verbose)
             logger.info("Cumulative return value: %d" % cumval)
             if 0 < cumval:
                 logger.warning("At least one BLASTN comparison failed. " +
-                               "%s may fail." % args.method)
+                               "%s may fail." % method)
             else:
                 logger.info("All multiprocessing jobs complete.")
         else:
@@ -237,8 +258,8 @@ def unified_anib(infiles, org_lengths):
             raise NotImplementedError
     else:
         # Import fragment lengths from JSON
-        if args.method == "ANIblastall":
-            with open(os.path.join(args.outdirname, 'fraglengths.json'),
+        if method == "ANIblastall":
+            with open(os.path.join(outdirname, 'fraglengths.json'),
                       'rU') as infile:
                 fraglengths = json.load(infile)
         else:
@@ -246,13 +267,13 @@ def unified_anib(infiles, org_lengths):
         logger.warning("Skipping BLASTN runs (as instructed)!")
 
     # Process pairwise BLASTN output
-    logger.info("Processing pairwise %s BLAST output." % args.method)
+    logger.info("Processing pairwise %s BLAST output." % method)
     try:
-        data = anib.process_blast(args.outdirname, org_lengths,
-                                  fraglengths=fraglengths, mode=args.method)
+        data = anib.process_blast(outdirname, org_lengths,
+                                  fraglengths=fraglengths, mode=method)
     except ZeroDivisionError:
         logger.error("One or more BLAST output files has a problem.")
-        if not args.skip_blastn:
+        if not skip_blastn:
             if 0 < cumval:
                 logger.error("This is possibly due to BLASTN run failure, " +
                              "please investigate")
