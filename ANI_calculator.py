@@ -12,9 +12,9 @@ from cluster_utils import create_pickle, create_Jobs
 def main():
 
 	parser = argparse.ArgumentParser(description="This program performs the ANI method (ANIb or ANIm)")
-	parser.add_argument('-i', nargs='?', type=str, help="folder with fna files", required=True)
+	parser.add_argument('-i', nargs='?', type=str, help="folder with fna files", required=False)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=True)
-	parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=True)
+	parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
 	parser.add_argument('-t', nargs='?', type=str, help="type of ANI (ANIm or ANIb)", required=True)
 
