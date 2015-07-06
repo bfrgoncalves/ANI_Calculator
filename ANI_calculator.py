@@ -72,7 +72,7 @@ def cluster(args):
 			x = pickle.load(f)
 
 		for i in x[1][1]:
-			print i[0]
+			print x[1][1][i]
 
 
 	########## FAZER PARTE DO ANI ##############################
