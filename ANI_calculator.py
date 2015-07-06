@@ -42,8 +42,9 @@ def cluster(args):
 	print job_args, allQueryBasePaths
 	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
-	for i in os.walk(inputDir):
-		print i
+	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
+
+	print onlyfiles
 
 	########## FAZER PARTE DO ANI ##############################
 
