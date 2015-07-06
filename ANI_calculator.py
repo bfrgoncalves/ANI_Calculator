@@ -35,6 +35,7 @@ def cluster(args):
 	listOfArguments = (args.d, args.s, '*.fna')
 	action = 'dwnFTP'
 	job_args, allQueryBasePaths = create_pickle(listOfArgs, 'InputFiles', job_args, action, args.d, allQueryBasePaths)
+	print job_args, allQueryBasePaths
 	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
 	########## FAZER PARTE DO ANI ##############################
