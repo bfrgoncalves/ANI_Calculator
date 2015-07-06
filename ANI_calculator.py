@@ -82,7 +82,18 @@ def cluster(args):
 					dictOfResults[i].append({})
 					dictOfResults[i][0][j] = x[1][1][i][j]
 
-	print dictOfResults
+
+	finalResults = []
+	finalResults.append(onlyfiles)
+
+	for i in onlyfiles:
+		toAppend = []
+		toApend.append(i)
+		for j in onlyfiles:
+			toAppend.append(dictOfResults[i][0][j])
+		finalResults.append(toAppend)
+
+	print finalResults
 
 
 
