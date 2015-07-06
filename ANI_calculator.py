@@ -55,10 +55,19 @@ def cluster(args):
 
 	for comparison in ComparisonsToMake:
 		countComparisons += 1
-		listOfArgs = (comparison, args.t, 'multiprocessing', countComparisons)
+		listOfArgs = (inputDir, comparison, args.t, 'multiprocessing', countComparisons)
 		action = 'ANIcalc'
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, comparison, allQueryBasePaths, countComparisons)
+	
+	create_Jobs(job_args, 'ANI_calc.py', allQueryBasePaths)
 
+	countResults = 0
+	for i in allQueryBasePaths:
+		countResults += 1
+		filepath=os.path.join( i,str(countResults)+"_"+ action + "_result.txt")
+
+		with open(filepath,'rb') as f:
+			x = pickle.load(f)
 
 
 	########## FAZER PARTE DO ANI ##############################

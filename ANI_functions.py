@@ -11,7 +11,7 @@ from pyani.run_multiprocessing import multiprocessing_run
 from pyani.pyani_config import params_mpl, params_r
 
 
-def func_ANI_calc(comparisonDir, method, scheduler):
+def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler):
 
     # Have we got a valid method choice?
     # Dictionary below defines analysis function, and output presentation
@@ -37,7 +37,11 @@ def func_ANI_calc(comparisonDir, method, scheduler):
 
     # Get input files
     #logger.info("Identifying FASTA files in %s" % args.indirname)
-    infiles = pyani_files.get_fasta_files(comparisonDir)
+    infiles = []
+    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[0]))
+    infiles.append(os.path.join(InputFilesDir, comparisonToMake.split('--')[1]))
+
+    #infiles = pyani_files.get_fasta_files(comparisonDir)
     logger.info("Input files:\n\t%s" % '\n\t'.join(infiles))
 
     # Get lengths of input sequences
