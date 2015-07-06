@@ -67,17 +67,24 @@ def cluster(args):
 	dictOfResults = {}
 	for i in allQueryBasePaths:
 		countResults += 1
-		filepath=os.path.join( i,str(countResults)+"_"+ action + "_result.txt")
+		filepath=os.path.join(i, str(countResults)+"_"+ action + "_result.txt")
 
 		with open(filepath,'rb') as f:
 			x = pickle.load(f)
 
 		for i in x[1][1]:
-			print x[1][1][i]
-			print x[1][1][i].index.tolist()
+			indexes = x[1][1][i].index.tolist()
+			for j in indexes:
+				try:
+					dictOfResults[i][0][j] = x[1][1][i][j]
+				except IndexError:
+					dictOfResults[i] = []
+					dictOfResults[i][0] = {}
+					dictOfResults[i][0][j] = x[1][1][i][j]
+
+	print dictOfResults
 
 
-	########## FAZER PARTE DO ANI ##############################
 
 
 if __name__ == "__main__":
