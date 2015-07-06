@@ -23,9 +23,9 @@ def main():
 	def dwnFTP_cluster(args):
 	    fileNames = func_dwnFTP(args[0], args[1], args[2])
 
-	    final =	(args[0], ANI_results)
+	    final =	(args[0], fileNames)
 
-	    filepath=os.path.join(temppath , str(args[1])+"_ANI_result.txt")
+	    filepath=os.path.join(temppath , str(args[1])+"_FTP_result.txt")
 
 	    with open(filepath, 'wb') as f:
 			pickle.dump(final, f)
@@ -33,7 +33,7 @@ def main():
 	    return True
 
 
-	ANI_calc(argumentList)
+	dwnFTP_cluster(argumentList)
 
 if __name__ == "__main__":
     main()
