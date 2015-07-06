@@ -74,8 +74,7 @@ def cluster(args):
 
 		for i in x[1][1]:
 			print x[1][1][i]
-			for j in x[1][1][i]:
-				print j.index.tolist()
+			print x[1][1][i].index.tolist()
 
 
 	########## FAZER PARTE DO ANI ##############################
