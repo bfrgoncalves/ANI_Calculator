@@ -199,7 +199,7 @@ def unified_anib(infiles, org_lengths):
     if not skip_blastn:
         # Make sequence fragments
         #logger.info("Fragmenting input files, and writing to %s" %
-                    outdirname)
+                    #outdirname)
         # Fraglengths does not get reused with BLASTN
         fragfiles, fraglengths = anib.fragment_FASTA_files(infiles,
                                                            outdirname,
