@@ -29,7 +29,7 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
     blastn_exe = pyani_config.BLASTN_DEFAULT
 
 
-    outdirname = os.path.join(InputFilesDir, Results, comparisonToMake)
+    outdirname = os.path.join(InputFilesDir, 'Results', comparisonToMake)
 
     if not os.path.isdir(os.path.join(outdirname)):
         os.makedirs(os.path.join(outdirname))
