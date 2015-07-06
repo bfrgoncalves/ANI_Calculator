@@ -32,17 +32,17 @@ def func_dwnFTP(target_bug, target_dir, file_type):
             print
             print "----------------------------------------------"
             print "Dir: " + item
-            #create the dir
-            if not os.path.isdir(os.path.join(target_dir,target_bug)):
-                print "Dir not found. Creating it..."
-                os.makedirs(os.path.join(target_dir,target_bug))
-            #1) change the dir
+            # #create the dir
+            # if not os.path.isdir(os.path.join(target_dir,target_bug)):
+            #     print "Dir not found. Creating it..."
+            #     os.makedirs(os.path.join(target_dir,target_bug))
+            # #1) change the dir
             f.cwd(item)
             #2) get  files from file_type in dir
             try:
                 files=f.nlst(file_type)
                 for fi in files:
-                    local_file = os.path.join(target_dir,target_bug,fi)
+                    local_file = os.path.join(target_dir,fi)
                     if os.path.isfile(local_file):
                         print "Dir:" + item 
                         print "File " + local_file + " already exists."
