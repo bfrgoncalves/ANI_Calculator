@@ -95,7 +95,13 @@ def cluster(args):
 			toAppend.append(dictOfResults[tocheck1][0][tocheck2])
 		finalResults.append(toAppend)
 
-	print finalResults
+
+	lf=open('resultados.tab','w')
+
+	for i in finalResults:
+		lf.write('\t'.join([str(x) for x in finalResults[i]]))
+
+	lf.close()
 
 
 
