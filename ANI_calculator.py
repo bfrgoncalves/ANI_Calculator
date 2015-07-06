@@ -42,6 +42,9 @@ def cluster(args):
 	print job_args, allQueryBasePaths
 	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
+	for i in os.walk(inputDir):
+		print i
+
 	########## FAZER PARTE DO ANI ##############################
 
 
