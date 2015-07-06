@@ -32,10 +32,13 @@ def cluster(args):
 	if not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
-	listOfArgs = (args.d, 'InputFiles', '*.fna')
+	
+	currentDir = os.getcwd()
+	inputDir = os.path.join(currentDir,'InputFiles')
+	listOfArgs = (args.d, inputDir, '*.fna')
 	print listOfArgs
 	action = 'dwnFTP'
-	job_args, allQueryBasePaths = create_pickle(listOfArgs, 'InputFiles', job_args, action, args.d, allQueryBasePaths)
+	job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths)
 	print job_args, allQueryBasePaths
 	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
