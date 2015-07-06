@@ -27,7 +27,6 @@ def create_Jobs(job_args, pythonScript, allQueryBasePaths):
 		for argList in job_args:
 			jt = s.createJobTemplate()
 			jt.remoteCommand = os.path.join(os.getcwd(), pythonScript)
-			print str(argList),allQueryBasePaths[countargList]
 			jt.args = [str(argList),allQueryBasePaths[countargList]]
 			jt.joinFiles=True
 			jt.nativeSpecification='-V'
