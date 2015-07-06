@@ -34,9 +34,6 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
     if not os.path.isdir(os.path.join(outdirname)):
         os.makedirs(os.path.join(outdirname)
 
-
-
-
     methods = {"ANIm": (calculate_anim, pyani_config.ANIM_FILESTEMS),
                "ANIb": (unified_anib, pyani_config.ANIB_FILESTEMS)
               }
