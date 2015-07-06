@@ -10,23 +10,22 @@ from pyani import anib, anim, tetra, pyani_config, pyani_files
 from pyani.run_multiprocessing import multiprocessing_run
 from pyani.pyani_config import params_mpl, params_r
 
+skip_nucmer = False
+skip_blastn = False
+nucmer_exe = pyani_config.NUCMER_DEFAULT
+maxmatch = False
+verbose = False
+fragsize = pyani_config.FRAGSIZE
+formatdb_exe = pyani_config.FORMATDB_DEFAULT
+blastall_exe = pyani_config.BLASTALL_DEFAULT
+makeblastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
+blastn_exe = pyani_config.BLASTN_DEFAULT
 
 def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countComparisons):
 
     # Have we got a valid method choice?
     # Dictionary below defines analysis function, and output presentation
     # functions/settings, dependent on selected method.
-
-    skip_nucmer = False
-    skip_blastn = False
-    nucmer_exe = pyani_config.NUCMER_DEFAULT
-    maxmatch = False
-    verbose = False
-    fragsize = pyani_config.FRAGSIZE
-    formatdb_exe = pyani_config.FORMATDB_DEFAULT
-    blastall_exe = pyani_config.BLASTALL_DEFAULT
-    makeblastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
-    blastn_exe = pyani_config.BLASTN_DEFAULT
 
 
     outdirname = os.path.join(InputFilesDir, 'Results', comparisonToMake)
