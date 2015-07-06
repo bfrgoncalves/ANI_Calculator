@@ -131,10 +131,10 @@ def calculate_anim(infiles, org_lengths):
             #logger.info("Running jobs with multiprocessing")
             cumval = multiprocessing_run(cmdlist, verbose=verbose)
             #logger.info("Cumulative return value: %d" % cumval)
-            if 0 < cumval:
+            #if 0 < cumval:
                 #logger.warning("At least one NUCmer comparison failed. " +
-                               "ANIm may fail.")
-            else:
+                               #"ANIm may fail.")
+            #else:
                 #logger.info("All multiprocessing jobs complete.")
         else:
             #logger.info("Running jobs with SGE")
@@ -148,14 +148,15 @@ def calculate_anim(infiles, org_lengths):
         data = anim.process_deltadir(outdirname, org_lengths)
     except ZeroDivisionError:
         #logger.error("One or more NUCmer output files has a problem.")
-        if not skip_nucmer:
-            if 0 < cumval:
+        print "One or more NUCmer output files has a problem."
+        #if not skip_nucmer:
+            #if 0 < cumval:
                 #logger.error("This is possibly due to NUCmer run failure, " +
-                             "please investigate")
-            else:
+                             #"please investigate")
+            #else:
                 #logger.error("This is possibly due to a NUCmer comparison " +
-                             "being too distant for use. Please consider " +
-                             "using the --maxmatch option.")
+                             #"being too distant for use. Please consider " +
+                             #"using the --maxmatch option.")
         #logger.error(last_exception())
     return data
 
@@ -227,10 +228,10 @@ def unified_anib(infiles, org_lengths):
         if scheduler == 'multiprocessing':
             #logger.info("Running jobs with multiprocessing")
             cumval = multiprocessing_run(cmdlist, verbose=verbose)
-            if 0 < cumval:
+            #if 0 < cumval:
                 #logger.warning("At least one makeblastdb run failed. " +
-                               "%s may fail." % method)
-            else:
+                               #"%s may fail." % method)
+            #else:
                 #logger.info("All multiprocessing jobs complete.")
         else:
             #logger.info("Running jobs with SGE")
@@ -245,10 +246,10 @@ def unified_anib(infiles, org_lengths):
             #logger.info("Running jobs with multiprocessing")
             cumval = multiprocessing_run(cmdlist, verbose=verbose)
             #logger.info("Cumulative return value: %d" % cumval)
-            if 0 < cumval:
+            #if 0 < cumval:
                 #logger.warning("At least one BLASTN comparison failed. " +
-                               "%s may fail." % method)
-            else:
+                               #"%s may fail." % method)
+            #else:
                 #logger.info("All multiprocessing jobs complete.")
         else:
             #logger.info("Running jobs with SGE")
@@ -270,12 +271,13 @@ def unified_anib(infiles, org_lengths):
                                   fraglengths=fraglengths, mode=method)
     except ZeroDivisionError:
         #logger.error("One or more BLAST output files has a problem.")
-        if not skip_blastn:
-            if 0 < cumval:
+        print "One or more BLAST output files has a problem."
+        #if not skip_blastn:
+            #if 0 < cumval:
                 #logger.error("This is possibly due to BLASTN run failure, " +
-                             "please investigate")
-            else:
+                             #"please investigate")
+            #else:
                 #logger.error("This is possibly due to a BLASTN comparison " +
-                             "being too distant for use.")
+                             #"being too distant for use.")
         #logger.error(last_exception())
     return data
