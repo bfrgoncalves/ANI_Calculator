@@ -70,7 +70,7 @@ def cluster(args):
 		with open(filepath,'rb') as f:
 			x = pickle.load(f)
 
-		print x[1]
+		print x[1][1]
 
 
 	########## FAZER PARTE DO ANI ##############################
