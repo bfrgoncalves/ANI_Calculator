@@ -54,6 +54,7 @@ for item in dirs:
 				f.sendcmd("TYPE i") 
 				statSize = f.size(fi)
 				f.sendcmd("TYPE A")
+				print statSize
 				
 				if statSize > currentTopSize: #Checks for the biggest fna file to download. Rejects small files like plasmids
 					currentTopSize = statSize
@@ -75,6 +76,9 @@ for item in dirs:
 					DownloadAndSetTimestamp(local_file,fi,nt)
 					print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
 					print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
+
+			elif statSize < 1000000:
+				print 'File has a size lower than 1MB. Possibly a plasmid.'
 
 			else:
 				print "New file: "+fi
