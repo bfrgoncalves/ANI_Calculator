@@ -126,8 +126,8 @@ def cluster(args):
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	print homeFolder
 	os.system('cd ' + str(homeFolder))
-	os.system("rm *py.o*")
-	os.system("cd " + str(curDir))
+	#os.system("rm *py.o*")
+	#os.system("cd " + str(curDir))
 
 if __name__ == "__main__":
     main()
