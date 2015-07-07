@@ -33,6 +33,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
             print "----------------------------------------------"
             print "Dir: " + item
             # #create the dir
+            biggestFnaFile = '';
+            currentTopSize = 0;
             # if not os.path.isdir(os.path.join(target_dir,target_bug)):
             #     print "Dir not found. Creating it..."
             #     os.makedirs(os.path.join(target_dir,target_bug))
