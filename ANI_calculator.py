@@ -126,7 +126,7 @@ def cluster(args):
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	print homeFolder
 	os.chdir(str(homeFolder))
-	#os.system("cd /home/bgoncalves")
+	os.system("rm *py.o*")
 	#subprocess.call(["rm", '*py.o*'])
 	#subprocess.call(["cd", str(curDir)])
 
