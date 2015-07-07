@@ -5,6 +5,7 @@ import os
 import shutil
 from os import listdir
 from os.path import isfile, join, isdir
+from datetime import datetime
 
 from cluster_utils import create_pickle, create_Jobs
 import pickle
@@ -13,8 +14,9 @@ import pickle
 def main():
 
 	parser = argparse.ArgumentParser(description="This program performs the ANI method (ANIb or ANIm)")
+	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=False)
 	parser.add_argument('-i', nargs='?', type=str, help="folder with fna files", required=False)
-	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=True)
+	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
 	parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
 	parser.add_argument('-t', nargs='?', type=str, help="type of ANI (ANIm or ANIb)", required=True)
@@ -99,8 +101,12 @@ def cluster(args):
 			toAppend.append(dictOfResults[tocheck1][0][tocheck2])
 		finalResults.append(toAppend)
 
+	if not os.path.isdir(args.o):
+		os.makedirs(args.o)
 
-	lf=open('resultados.tab','w')
+	resultFileName = 'results_' + str(args.n) + '_' + str(datetime.now()) + '.tab'
+	
+	lf=open(os.path.join(str(args.o), resultFileName),'w')
 	lf.write('\t')
 	for i in finalResults:
 		lf.write('\t'.join([str(x) for x in i]))
