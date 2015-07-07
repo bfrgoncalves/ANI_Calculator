@@ -4,6 +4,7 @@ import os
 import shutil
 from os import listdir
 from os.path import isfile, join, isdir
+import sys
 
 
 def main():
@@ -21,17 +22,18 @@ def main():
 
 def nonCluster(args):
 	print 'Running'
+
+	if not args.i and not args.d:
+		print 'A folder with input files or a token to download from NCBI is required.'
+		sys.exit()
+
 	if not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
 	if args.d:
 		subprocess.call(['python', 'dwnFTP_version2/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t]);
-	else:
-		if not args.i:
-			print 'Please select the folder with query files'
-			os.exit()
-		
+	else:		
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', args.i, '-o',  args.o,  '-m', args.t]);
 
 
