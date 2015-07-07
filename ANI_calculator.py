@@ -104,8 +104,5 @@ def cluster(args):
 
 	lf.close()
 
-
-
-
 if __name__ == "__main__":
     main()
