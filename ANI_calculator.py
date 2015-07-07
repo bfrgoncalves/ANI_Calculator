@@ -34,14 +34,18 @@ def cluster(args):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
 	
-	currentDir = os.getcwd()
-	inputDir = os.path.join(currentDir,'InputFiles')
-	listOfArgs = (args.d, inputDir, '*.fna')
-	print listOfArgs
-	action = 'dwnFTP'
-	job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
-	print job_args, allQueryBasePaths
-	create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
+	if args.i:
+		currentDir = os.getcwd()
+		inputDir = os.path.join(currentDir, args.i)
+	else:
+		currentDir = os.getcwd()
+		inputDir = os.path.join(currentDir,'InputFiles')
+		listOfArgs = (args.d, inputDir, '*.fna')
+		print listOfArgs
+		action = 'dwnFTP'
+		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
+		print job_args, allQueryBasePaths
+		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
 
