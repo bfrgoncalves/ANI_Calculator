@@ -123,9 +123,9 @@ def cluster(args):
 
 	parsedDir = curDir.split('/')
 	del parsedDir[3:]
-	print '/'.join([str(x) for x in parsedDir])
+	homeFolder =  '/'.join([str(x) for x in parsedDir])
 
-	subprocess.call(["cd", '/home'])
+	subprocess.call(["cd", homeFolder])
 	subprocess.call(["rm", '*py.o*'])
 	subprocess.call(["cd", curDir])
 
