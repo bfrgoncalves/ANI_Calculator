@@ -49,10 +49,8 @@ def cluster(args):
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir,'InputFiles')
 		listOfArgs = (args.d, inputDir, '*.fna')
-		print listOfArgs
 		action = 'dwnFTP'
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
-		print job_args, allQueryBasePaths
 		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
@@ -123,7 +121,11 @@ def cluster(args):
 
 	lf.close()
 
-	subprocess.call(["cd"])
+	parsedDir = curDir.split('/')
+	del parsedDir[2:]
+	print parsedDir
+
+	subprocess.call(["cd", '/home'])
 	subprocess.call(["rm", '*py.o*'])
 	subprocess.call(["cd", curDir])
 
