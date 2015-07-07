@@ -24,9 +24,9 @@ optional arguments:
 
 # Example of usage
 
-`python ANI_calculator.py -d Haemophilus_influenzae -o output -t ANIm`
+*ANIm* analysis after downloading from NCBI files with *Haemophilus_influenzae* token: `python ANI_calculator.py -d Haemophilus_influenzae -o output -t ANIm`
 
-Downloads all the *fna* files from *Haemophilus influenzae* and then runs the *ANIm* method. The results will go to the *output* directory.
+*ANIb* analysis using files from *InpuFiles* folder: `python ANI_calculator.py -i InputFiles -o output -t ANIb`
 
 
 #Dependencies
