@@ -125,10 +125,9 @@ def cluster(args):
 	del parsedDir[3:]
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	print homeFolder
-	subprocess.call(["cd", str(homeFolder)])
-	subprocess.call(["rm", '*py.o*'])
-	subprocess.call(["cd", str(curDir)])
-
+	os.system('cd ' + str(homeFolder))
+	os.system("rm *py.o*")
+	os.system("cd " + str(curDir))
 
 if __name__ == "__main__":
     main()
