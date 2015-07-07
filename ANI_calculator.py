@@ -15,7 +15,7 @@ import sys
 
 def main():
 
-	parser = argparse.ArgumentParser(description="This program performs the ANI method (ANIb or ANIm)")
+	parser = argparse.ArgumentParser(description="This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloaded files from `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` after searching for the *DOWNLOADTOKEN*")
 	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=True)
 	parser.add_argument('-i', nargs='?', type=str, help="folder with fna files", required=False)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
