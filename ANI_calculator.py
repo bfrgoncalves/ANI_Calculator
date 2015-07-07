@@ -10,6 +10,7 @@ from datetime import datetime
 
 from cluster_utils import create_pickle, create_Jobs
 import pickle
+import sys
 
 
 def main():
@@ -127,9 +128,6 @@ def cluster(args):
 	print homeFolder
 	os.chdir(str(homeFolder))
 	os.system("rm *py.o*")
-	#subprocess.call(["rm", '*py.o*'])
-	#subprocess.call(["cd", str(curDir)])
-
 
 if __name__ == "__main__":
     main()
