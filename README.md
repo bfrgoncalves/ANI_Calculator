@@ -44,3 +44,9 @@ For ANI analysis
 * BLAST+ executable in the $PATH, or available on the command line (required for ANIb analysis) ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/
 
 * MUMmer executables in the $PATH, or available on the command line (required for ANIm analysis) http://mummer.sourceforge.net/
+
+#Modules used
+
+* dwnFTP https://github.com/jacarrico/dwnFTP
+
+* pyani  https://github.com/widdowquinn/pyani
