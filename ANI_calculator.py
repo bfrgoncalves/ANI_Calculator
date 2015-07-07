@@ -122,8 +122,8 @@ def cluster(args):
 	lf.close()
 
 	parsedDir = curDir.split('/')
-	del parsedDir[2:]
-	print parsedDir
+	del parsedDir[3:]
+	print '/'.join([str(x) for x in parsedDir])
 
 	subprocess.call(["cd", '/home'])
 	subprocess.call(["rm", '*py.o*'])
