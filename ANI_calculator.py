@@ -105,6 +105,9 @@ def cluster(args):
 		os.makedirs(args.o)
 
 	resultFileName = 'results_' + str(args.n) + '_' + str(datetime.now()) + '.tab'
+	resultFileName = resultFileName.replace(' ', '')
+	resultFileName = resultFileName.replace(':', '_')
+	resultFileName = resultFileName.replace('.', '_', 1)
 	
 	lf=open(os.path.join(str(args.o), resultFileName),'w')
 	lf.write('\t')
