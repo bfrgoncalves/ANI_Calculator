@@ -43,32 +43,41 @@ def func_dwnFTP(target_bug, target_dir, file_type):
                 files=f.nlst(file_type)
                 for fi in files:
                     local_file = os.path.join(target_dir,fi)
-                    if os.path.isfile(local_file):
-                        print "Dir:" + item 
-                        print "File " + local_file + " already exists."
-                        #get remote modification time           
-                        mt = f.sendcmd('MDTM '+ fi)
-                        #converting to timestamp
-                        nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
+                    f.sendcmd("TYPE i") 
+                    statSize = f.size(fi)
+                    f.sendcmd("TYPE A")
+                    print statSize
+                    
+                    if statSize > currentTopSize: #Checks for the biggest fna file to download. Rejects small files like plasmids
+                        currentTopSize = statSize
+                        biggestFnaFile = local_file
 
-                        if int(nt)==int(os.stat(local_file).st_mtime):
-                            print fi +" not modified. Download skipped"
-                        else:
-                            print "New version of "+fi
-                            ct+=1
-                            DownloadAndSetTimestamp(local_file,fi,nt)
-                            print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
-                            print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
+                if os.path.isfile(local_file):
+                    print "Dir:" + item 
+                    print "File " + local_file + " already exists."
+                    #get remote modification time           
+                    mt = f.sendcmd('MDTM '+ fi)
+                    #converting to timestamp
+                    nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
 
-                    elif statSize < 1000000:
-                        print 'File has a size lower than 1MB. Possibly a plasmid.'
+                    if int(nt)==int(os.stat(local_file).st_mtime):
+                        print fi +" not modified. Download skipped"
                     else:
-                        print "New file: "+fi
+                        print "New version of "+fi
                         ct+=1
-                        mt = f.sendcmd('MDTM '+ fi)
-                        #converting to timestamp
-                        nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
                         DownloadAndSetTimestamp(local_file,fi,nt)
+                        print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
+                        print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
+
+                elif statSize < 1000000:
+                    print 'File has a size lower than 1MB. Possibly a plasmid.'
+                else:
+                    print "New file: "+fi
+                    ct+=1
+                    mt = f.sendcmd('MDTM '+ fi)
+                    #converting to timestamp
+                    nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
+                    DownloadAndSetTimestamp(local_file,fi,nt)
             except ftplib.error_temp,  resp:
                 if str(resp) == "450 No files found":
                     print "No "+ file_type +" files in this directory. Skipping"
