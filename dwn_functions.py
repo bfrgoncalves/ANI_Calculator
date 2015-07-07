@@ -60,6 +60,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
                             print "NV Local M timestamp : " + str(os.stat(local_file).st_mtime)
                             print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
 
+                    elif statSize < 1000000:
+                        print 'File has a size lower than 1MB. Possibly a plasmid.'
                     else:
                         print "New file: "+fi
                         ct+=1
