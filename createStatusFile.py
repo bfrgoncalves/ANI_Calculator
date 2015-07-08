@@ -16,7 +16,7 @@ def createStatusFile(filepath, arrayOfStatus):
 	lf.write('Number of downloaded files: ' + str(arrayOfStatus[3]) + '\n')
 	lf.write('Number of files under 1MB: ' + str(arrayOfStatus[4]) + '\n')
 	lf.write('ANI Time: ' + str(arrayOfStatus[5]) + '\n')
-	lf.write('Total Time: ' + str(arrayOfStatus[5]) + '\n')
+	lf.write('Total Time: ' + str(arrayOfStatus[6]) + '\n')
 
 	lf.close()
 
