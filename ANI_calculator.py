@@ -56,6 +56,8 @@ def cluster(args):
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
 		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
+	timeDownload = datetime.now() - startTime
+
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
 
 	ComparisonsToMake = []
@@ -75,6 +77,8 @@ def cluster(args):
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, comparison, allQueryBasePaths, countComparisons)
 	
 	create_Jobs(job_args, 'ANI_calc.py', allQueryBasePaths)
+
+	timeANI = datetime.now() - timeDownload
 
 	countResults = 0
 	dictOfResults = {}
@@ -128,9 +132,11 @@ def cluster(args):
 	del parsedDir[3:]
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	os.chdir(str(homeFolder))
-	#os.system("rm *py.o*")
+	os.system("rm *py.o*")
 
-	print datetime.now() - startTime
+	print 'Download Time: ' + str(timeDownload)
+	print 'ANI Time: ' + str(timeANI)
+	print 'Total Time: ' + str(datetime.now() - startTime)
 
 if __name__ == "__main__":
     main()
