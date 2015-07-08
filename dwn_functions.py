@@ -47,7 +47,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
             try:
                 files=f.nlst(file_type)
                 for fi in files:
-                    local_file = os.path.join(target_dir,fi)
+                    newFileName = str(item.split('/')[0]) + '.fna'
+                    local_file = os.path.join(target_dir,newFileName)
                     f.sendcmd("TYPE i") 
                     statSize = f.size(fi)
                     f.sendcmd("TYPE A")

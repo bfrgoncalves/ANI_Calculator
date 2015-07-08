@@ -57,6 +57,7 @@ def cluster(args):
 		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
 
 	timeDownload = datetime.now() - startTime
+	startTimeD = datetime.now()
 
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
 
@@ -78,7 +79,7 @@ def cluster(args):
 	
 	create_Jobs(job_args, 'ANI_calc.py', allQueryBasePaths)
 
-	timeANI = datetime.now() - timeDownload
+	timeANI = datetime.now() - startTimeD
 
 	countResults = 0
 	dictOfResults = {}
@@ -101,11 +102,11 @@ def cluster(args):
 
 
 	finalResults = []
-	finalResults.append(onlyfiles)
+	finalResults.append([str(x.split('.')[0]) for x in onlyfiles])
 
 	for i in onlyfiles:
 		toAppend = []
-		toAppend.append(i)
+		toAppend.append(i.split('.')[0])
 		for j in onlyfiles:
 			tocheck1 = i.split('.')[0]
 			tocheck2 = j.split('.')[0]
