@@ -27,7 +27,10 @@ def func_dwnFTP(target_bug, target_dir, file_type):
 
     print "Searching for :"+ target_bug
     ct=0;
+    countDownloaded = 0
     for item in dirs:
+        if countDownloaded >= 20:
+            break
         if item.find(target_bug)>-1:
             print
             print "----------------------------------------------"
@@ -79,6 +82,7 @@ def func_dwnFTP(target_bug, target_dir, file_type):
                     mt = f.sendcmd('MDTM '+ fi)
                     #converting to timestamp
                     nt = datetime.strptime(mt[4:], "%Y%m%d%H%M%S").strftime("%s")
+                    countDownloaded += 1
                     DownloadAndSetTimestamp(local_file,fi,nt)
             except ftplib.error_temp,  resp:
                 if str(resp) == "450 No files found":
