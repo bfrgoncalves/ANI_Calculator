@@ -50,12 +50,12 @@ def cluster(args):
 	if args.i:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir, args.i)
-		statusArray.push(args.i)
+		statusArray.append(args.i)
 	else:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir,'InputFiles')
 		listOfArgs = (args.d, inputDir, '*.fna')
-		statusArray.push(args.d)
+		statusArray.append(args.d)
 		action = 'dwnFTP'
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
 		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
@@ -68,10 +68,10 @@ def cluster(args):
 			with open(filepath,'rb') as f:
 				x = pickle.load(f)
 			
-			statusArray.push(x[0])
-			statusArray.push(x[1])
-			statusArray.push(x[2])
-			statusArray.push(x[3])
+			statusArray.append(x[0])
+			statusArray.append(x[1])
+			statusArray.append(x[2])
+			statusArray.append(x[3])
 
 
 
@@ -143,8 +143,8 @@ def cluster(args):
 	resultFileName = resultFile + '.tab'
 	statusFileName = resultFile + '.txt'
 
-	statusArray.push(str(timeDownload))
-	statusArray.push(str(timeANI))
+	statusArray.append(str(timeDownload))
+	statusArray.append(str(timeANI))
 
 	createMatrixFile(os.path.join(str(args.o), resultFileName), finalResults)
 	createStatusFile(os.path.join(str(args.o), statusFileName), statusArray)
