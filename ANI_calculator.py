@@ -54,7 +54,7 @@ def cluster(args):
 	else:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir,'InputFiles')
-		listOfArgs = (args.d, inputDir, '*.fna')
+		listOfArgs = (args.d, inputDir, '*.fna', 1)
 		statusArray.append(args.d)
 		action = 'dwnFTP'
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)

@@ -25,7 +25,7 @@ def main():
 
 	    final =	(timeDownload, countDownloaded, countSeen, under1MB)
 
-	    filepath=os.path.join(temppath , str(args[1])+"_dwnFTP_result.txt")
+	    filepath=os.path.join(temppath , str(args[3])+"_dwnFTP_result.txt")
 
 	    with open(filepath, 'wb') as f:
 			pickle.dump(final, f)
