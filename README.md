@@ -8,9 +8,9 @@ This program performs a given ANI method (ANIb or ANIm) on a set of input files 
 
 Uses the **Distributed Resource Management Application API (DRMMA)** for the submission and control of jobs in a **Cluster**.
 
-ANIb method: Richter et al (2009) Proc Natl Acad Sci USA 106: 19126-19131 doi:10.1073/pnas.0906412106
+ANIm method: Richter et al (2009) Proc Natl Acad Sci USA 106: 19126-19131 doi:10.1073/pnas.0906412106
 
-ANIm method: Goris et al. (2007) Int J Syst Evol Micr 57: 81-91. doi:10.1099/ijs.0.64483-0
+ANIb method: Goris et al. (2007) Int J Syst Evol Micr 57: 81-91. doi:10.1099/ijs.0.64483-0
 
 Optional arguments:
  
