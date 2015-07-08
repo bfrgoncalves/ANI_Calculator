@@ -29,7 +29,7 @@ def func_dwnFTP(target_bug, target_dir, file_type):
     ct=0;
     countDownloaded = 0
     for item in dirs:
-        if countDownloaded >= 20:
+        if countDownloaded >= 30:
             break
         if item.find(target_bug)>-1:
             print
