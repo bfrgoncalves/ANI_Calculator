@@ -9,7 +9,7 @@ def createStatusFile(filepath, arrayOfStatus):
 	#[5] ANI time
 	#[6] total time
 
-	lf=open(os.path.join(filepath,'w')
+	lf=open(os.path.join(filepath),'w')
 	lf.write('Results: \n\n')
 	lf.write('Token: ' + str(arrayOfStatus[0]) + '\n')
 	lf.write('Download Time: ' + str(arrayOfStatus[1]) + '\n')
