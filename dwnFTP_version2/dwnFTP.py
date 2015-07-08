@@ -50,7 +50,8 @@ for item in dirs:
 		try:
 			files=f.nlst(file_type)
 			for fi in files:
-				local_file = os.path.join(target_dir,target_bug,fi)
+				newFileName = str(item.split('/')[0]) + '.fna'
+				local_file = os.path.join(target_dir,target_bug,newFileName)
 				f.sendcmd("TYPE i") 
 				statSize = f.size(fi)
 				f.sendcmd("TYPE A")

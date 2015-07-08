@@ -5,6 +5,7 @@ import shutil
 from os import listdir
 from os.path import isfile, join, isdir
 import sys
+from datetime import datetime
 
 
 def main():
@@ -23,6 +24,8 @@ def main():
 def nonCluster(args):
 	print 'Running'
 
+	startTime = datetime.now()
+
 	if not args.i and not args.d:
 		print 'A folder with input files or a token to download from NCBI is required.'
 		sys.exit()
@@ -32,10 +35,19 @@ def nonCluster(args):
 	
 	if args.d:
 		subprocess.call(['python', 'dwnFTP_version2/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
+		timeDownload = datetime.now() - startTime
+		startTimeD = datetime.now()
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t]);
-	else:		
+		timeANI = datetime.now() - startTimeD
+	else:
+		timeDownload = 0		
 		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', args.i, '-o',  args.o,  '-m', args.t]);
+		timeANI = datetime.now() - startTime
 
+
+	print 'Download Time: ' + str(timeDownload)
+	print 'ANI Time: ' + str(timeANI)
+	print 'Total Time: ' + str(datetime.now() - startTime)
 
 if __name__ == "__main__":
     main()
