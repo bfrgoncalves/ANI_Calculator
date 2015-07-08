@@ -32,6 +32,7 @@ def cluster(args):
 	print 'Running cluster version'
 
 	startTime = datetime.now()
+	statusArray = []
 	
 	job_args = []
 	allQueryBasePaths = []
@@ -48,13 +49,30 @@ def cluster(args):
 	if args.i:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir, args.i)
+		statusArray.push(args.i)
 	else:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir,'InputFiles')
 		listOfArgs = (args.d, inputDir, '*.fna')
+		statusArray.push(args.d)
 		action = 'dwnFTP'
 		job_args, allQueryBasePaths = create_pickle(listOfArgs, inputDir, job_args, action, args.d, allQueryBasePaths, 1)
 		create_Jobs(job_args, 'dwnFTP_cluster.py', allQueryBasePaths)
+
+		countResults = 0
+		for i in allQueryBasePaths:
+			countResults += 1
+			filepath=os.path.join(i, str(countResults)+"_"+ action + "_result.txt")
+
+			with open(filepath,'rb') as f:
+				x = pickle.load(f)
+			
+			statusArray.push(x[0])
+			statusArray.push(x[1])
+			statusArray.push(x[2])
+			statusArray.push(x[3])
+
+
 
 	timeDownload = datetime.now() - startTime
 	startTimeD = datetime.now()
@@ -116,18 +134,20 @@ def cluster(args):
 	if not os.path.isdir(args.o):
 		os.makedirs(args.o)
 
-	resultFileName = 'results_' + str(args.n) + '_' + str(datetime.now()) + '.tab'
-	resultFileName = resultFileName.replace(' ', '')
-	resultFileName = resultFileName.replace(':', '_')
-	resultFileName = resultFileName.replace('.', '_', 1)
-	
-	lf=open(os.path.join(str(args.o), resultFileName),'w')
-	lf.write('\t')
-	for i in finalResults:
-		lf.write('\t'.join([str(x) for x in i]))
-		lf.write('\n')
+	resultFile = 'results_' + str(args.n) + '_' + str(datetime.now())
+	resultFile= resultFile.replace(' ', '')
+	resultFile = resultFile.replace(':', '_')
+	resultFile = resultFile.replace('.', '_', 1)
 
-	lf.close()
+	resultFileName = resultFile + '.tab'
+	statusFileName = resultFile + '.txt'
+
+	statusArray.push(str(timeDownload))
+	statusArray.push(str(timeANI))
+
+	createMatrixFile(os.path.join(str(args.o), resultFileName), finalResults)
+	createStatusFile(os.path.join(str(args.o), statusFileName), statusArray)
+
 
 	parsedDir = curDir.split('/')
 	del parsedDir[3:]

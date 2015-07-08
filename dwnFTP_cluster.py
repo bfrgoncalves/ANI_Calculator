@@ -21,11 +21,11 @@ def main():
 
 
 	def dwnFTP_cluster(args):
-	    fileNames = func_dwnFTP(args[0], args[1], args[2])
+	    timeDownload, countDownloaded, countSeen, under1MB = func_dwnFTP(args[0], args[1], args[2])
 
-	    final =	(args[0], fileNames)
+	    final =	(timeDownload, countDownloaded, countSeen, under1MB)
 
-	    filepath=os.path.join(temppath , str(args[1])+"_FTP_result.txt")
+	    filepath=os.path.join(temppath , str(args[1])+"_dwnFTP_result.txt")
 
 	    with open(filepath, 'wb') as f:
 			pickle.dump(final, f)

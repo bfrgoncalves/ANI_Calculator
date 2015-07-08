@@ -17,6 +17,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
         #set the modification time the same as server for future comparison
         os.utime(local_file,( int(nt) , int(nt) ))
 
+    startTime =datetime.now()
+
     print "Connecting to ftp.ncbi.nih.gov..."   
     f=ftplib.FTP('ftp.ncbi.nih.gov')
     f.login()
@@ -28,6 +30,8 @@ def func_dwnFTP(target_bug, target_dir, file_type):
     print "Searching for :"+ target_bug
     ct=0;
     countDownloaded = 0
+    countSeen = 0
+    under1MB = 0
     for item in dirs:
         if countDownloaded >= 100:
             break
@@ -36,8 +40,9 @@ def func_dwnFTP(target_bug, target_dir, file_type):
             print "----------------------------------------------"
             print "Dir: " + item
             # #create the dir
-            biggestFnaFile = '';
-            currentTopSize = 0;
+            biggestFnaFile = ''
+            currentTopSize = 0
+            countSeen += 1
             # if not os.path.isdir(os.path.join(target_dir,target_bug)):
             #     print "Dir not found. Creating it..."
             #     os.makedirs(os.path.join(target_dir,target_bug))
@@ -76,6 +81,7 @@ def func_dwnFTP(target_bug, target_dir, file_type):
                         print "NV Local A timestamp : " + str(os.stat(local_file).st_atime)
 
                 elif statSize < 1000000:
+                    under1MB += 1
                     print 'File has a size lower than 1MB. Possibly a plasmid.'
                 else:
                     print "New file: "+fi
@@ -91,3 +97,7 @@ def func_dwnFTP(target_bug, target_dir, file_type):
             f.cwd('..')
     f.quit()
     print "# of "+target_bug+" new files found and downloaded: " + str(ct)
+
+    timeDownload = datetime.now() - startTime
+
+    return timeDownload, countDownloaded, countSeen, under1MB
