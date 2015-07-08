@@ -6,7 +6,7 @@
 
 This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloaded files from `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` after searching for the *DOWNLOADTOKEN*
 
-Optimized ANI analysis for cluster version.
+Uses the **Distributed Resource Management Application API (DRMMA)** for the submission and control of jobs in a **Cluster**.
 
 ANIb method: Richter et al (2009) Proc Natl Acad Sci USA 106: 19126-19131 doi:10.1073/pnas.0906412106
 
