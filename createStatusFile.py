@@ -8,8 +8,7 @@ def createStatusFile(filepath, arrayOfStatus):
 	#[4] number of files under 1MB
 	#[5] ANI time
 	#[6] total time
-
-	lf=open(os.path.join(filepath),'w')
+	lf=open(filepath,'w')
 	lf.write('Results: \n\n')
 	lf.write('Token: ' + str(arrayOfStatus[0]) + '\n')
 	lf.write('Download Time: ' + str(arrayOfStatus[1]) + '\n')
@@ -24,7 +23,7 @@ def createStatusFile(filepath, arrayOfStatus):
 
 def createMatrixFile(filepath, finalResults):
 
-	lf=open(os.path.join(filepath,'w')
+	lf=open(filepath,'w')
 	lf.write('\t')
 	for i in finalResults:
 		lf.write('\t'.join([str(x) for x in i]))
