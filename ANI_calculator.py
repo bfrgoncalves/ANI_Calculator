@@ -30,6 +30,8 @@ def main():
 
 def cluster(args):
 	print 'Running cluster version'
+
+	startTime = datetime.now()
 	
 	job_args = []
 	allQueryBasePaths = []
@@ -127,6 +129,8 @@ def cluster(args):
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	os.chdir(str(homeFolder))
 	#os.system("rm *py.o*")
+
+	print datetime.now() - startTime
 
 if __name__ == "__main__":
     main()
