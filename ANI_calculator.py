@@ -126,7 +126,7 @@ def cluster(args):
 	del parsedDir[3:]
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	os.chdir(str(homeFolder))
-	os.system("rm *py.o*")
+	#os.system("rm *py.o*")
 
 if __name__ == "__main__":
     main()
