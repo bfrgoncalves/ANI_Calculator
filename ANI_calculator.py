@@ -143,8 +143,8 @@ def cluster(args):
 	resultFileName = resultFile + '.tab'
 	statusFileName = resultFile + '.txt'
 
-	statusArray.append(str(timeDownload))
 	statusArray.append(str(timeANI))
+	statusArray.append(str(datetime.now() - startTime))
 
 	createMatrixFile(os.path.join(str(args.o), resultFileName), finalResults)
 	createStatusFile(os.path.join(str(args.o), statusFileName), statusArray)
