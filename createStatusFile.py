@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 def createStatusFile(filepath, arrayOfStatus):
 	#[0] token
