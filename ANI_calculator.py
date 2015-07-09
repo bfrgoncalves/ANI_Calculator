@@ -156,6 +156,8 @@ def cluster(args):
 	os.chdir(str(homeFolder))
 	os.system("rm *py.o*")
 
+	subprocess.call(['python', 'hierarchical_clustering.py', '--i', os.path.join(str(args.o), resultFileName])
+
 	print 'Download Time: ' + str(timeDownload)
 	print 'ANI Time: ' + str(timeANI)
 	print 'Total Time: ' + str(datetime.now() - startTime)
