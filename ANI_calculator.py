@@ -37,14 +37,15 @@ def nonCluster(args):
 		subprocess.call(['python', 'dwnFTP_version2/dwnFTP.py', args.d, 'InputFiles', '*.fna']);
 		timeDownload = datetime.now() - startTime
 		startTimeD = datetime.now()
-		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t]);
+		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', 'InputFiles/' + args.d, '-o',  args.o,  '-m', args.t])
 		timeANI = datetime.now() - startTimeD
 	else:
 		timeDownload = 0		
-		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', args.i, '-o',  args.o,  '-m', args.t]);
+		subprocess.call(['python', 'pyani_version2/average_nucleotide_identity.py','-i', args.i, '-o',  args.o,  '-m', args.t])
 		timeANI = datetime.now() - startTime
 
-
+	resultsFileName = args.o + '/' + args.t + '_percentage_identity.tab'
+	subprocess.call(['python', 'hierarchical_clustering.py', '--i', resultsFileName])
 	print 'Download Time: ' + str(timeDownload)
 	print 'ANI Time: ' + str(timeANI)
 	print 'Total Time: ' + str(datetime.now() - startTime)
