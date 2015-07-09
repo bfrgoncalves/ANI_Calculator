@@ -149,14 +149,13 @@ def cluster(args):
 	createMatrixFile(os.path.join(str(args.o), resultFileName), finalResults)
 	createStatusFile(os.path.join(str(args.o), statusFileName), statusArray)
 
-
+	subprocess.call(['python', 'hierarchical_clustering.py', '--i', os.path.join(str(args.o), resultFileName)])
+	
 	parsedDir = curDir.split('/')
 	del parsedDir[3:]
 	homeFolder =  '/'.join([str(x) for x in parsedDir])
 	os.chdir(str(homeFolder))
 	os.system("rm *py.o*")
-
-	subprocess.call(['python', 'hierarchical_clustering.py', '--i', os.path.join(str(args.o), resultFileName)])
 
 	print 'Download Time: ' + str(timeDownload)
 	print 'ANI Time: ' + str(timeANI)
