@@ -79,6 +79,10 @@ def cluster(args):
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir, args.i)
 		statusArray.append(args.i)
+		statusArray.append(0)
+		statusArray.append('None')
+		statusArray.append('None')
+		statusArray.append('None')
 
 
 	timeDownload = datetime.now() - startTime
