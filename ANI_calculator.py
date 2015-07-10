@@ -20,7 +20,7 @@ def main():
 	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=True)
 	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=True)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
-	parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
+	#parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
 	parser.add_argument('-t', nargs='?', type=str, help="type of ANI (ANIm or ANIb)", required=True)
 
@@ -43,20 +43,12 @@ def cluster(args):
 		print 'A folder with input files or a token to download from NCBI is required.'
 		sys.exit()
 	
-	if args.i and not os.path.isdir(args.i):
-		os.makedirs(args.i)
-		print 'Downloading files to ' + args.c
-	elif args.c:
-		print 'Downloading files to ' + args.c
-	if not args.c and not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
-		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
-	
-	
 	if args.d:
 		currentDir = os.getcwd()
 		inputDir = os.path.join(currentDir,args.i)
 		if not os.path.isdir(inputDir):
 			os.makedirs(inputDir)
+		print 'Downloading files to ' + inputDir)
 		listOfArgs = (args.d, inputDir, '*.fna', 1)
 		statusArray.append(args.d)
 		action = 'dwnFTP'
