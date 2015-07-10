@@ -100,4 +100,4 @@ def func_dwnFTP(target_bug, target_dir, file_type):
 
     timeDownload = datetime.now() - startTime
 
-    return timeDownload, countDownloaded, countSeen, under1MB
+    return timeDownload, countSeen, countDownloaded, under1MB

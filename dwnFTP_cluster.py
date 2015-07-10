@@ -21,7 +21,7 @@ def main():
 
 
 	def dwnFTP_cluster(args):
-	    timeDownload, countDownloaded, countSeen, under1MB = func_dwnFTP(args[0], args[1], args[2])
+	    timeDownload, countSeen, countDownloaded, under1MB = func_dwnFTP(args[0], args[1], args[2])
 
 	    final =	(timeDownload, countDownloaded, countSeen, under1MB)
 
