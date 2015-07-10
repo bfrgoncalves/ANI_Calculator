@@ -158,8 +158,6 @@ def cluster(args):
 
 	createMatrixFile(os.path.join(str(args.o), resultFileName), finalResults)
 	createStatusFile(os.path.join(str(args.o), statusFileName), statusArray)
-
-	subprocess.call(['python', 'hierarchical_clustering.py', '--i', os.path.join(str(args.o), resultFileName)])
 	
 	parsedDir = curDir.split('/')
 	del parsedDir[3:]
