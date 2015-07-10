@@ -18,7 +18,7 @@ def main():
 
 	parser = argparse.ArgumentParser(description="This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloaded files from `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` after searching for the *DOWNLOADTOKEN*")
 	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=True)
-	parser.add_argument('-i', nargs='?', type=str, help="folder with fna files", required=False)
+	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=True)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
 	parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
@@ -43,17 +43,20 @@ def cluster(args):
 		print 'A folder with input files or a token to download from NCBI is required.'
 		sys.exit()
 	
-	if not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
+	if args.i and not os.path.isdir(args.i):
+		os.makedirs(args.i)
+		print 'Downloading files to ' + args.c
+	elif args.c:
+		print 'Downloading files to ' + args.c
+	if not args.c and not os.path.isdir(os.path.join(os.getcwd(),'InputFiles')):
 		os.makedirs(os.path.join(os.getcwd(),'InputFiles'))
 	
 	
-	if args.i:
+	if args.d:
 		currentDir = os.getcwd()
-		inputDir = os.path.join(currentDir, args.i)
-		statusArray.append(args.i)
-	else:
-		currentDir = os.getcwd()
-		inputDir = os.path.join(currentDir,'InputFiles')
+		inputDir = os.path.join(currentDir,args.i)
+		if not os.path.isdir(inputDir):
+			os.makedirs(inputDir)
 		listOfArgs = (args.d, inputDir, '*.fna', 1)
 		statusArray.append(args.d)
 		action = 'dwnFTP'
@@ -72,13 +75,20 @@ def cluster(args):
 			statusArray.append(x[1])
 			statusArray.append(x[2])
 			statusArray.append(x[3])
-
+	else:
+		currentDir = os.getcwd()
+		inputDir = os.path.join(currentDir, args.i)
+		statusArray.append(args.i)
 
 
 	timeDownload = datetime.now() - startTime
 	startTimeD = datetime.now()
 
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
+
+	if len(onlyfiles) == 0:
+		print 'There are no files in the ' + inputDir + 'directory.'
+		sys.exit()
 
 	ComparisonsToMake = []
 	countComparisons = 0
