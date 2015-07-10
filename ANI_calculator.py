@@ -48,7 +48,7 @@ def cluster(args):
 		inputDir = os.path.join(currentDir,args.i)
 		if not os.path.isdir(inputDir):
 			os.makedirs(inputDir)
-		print 'Downloading files to ' + inputDir)
+		print 'Downloading files to ' + inputDir
 		listOfArgs = (args.d, inputDir, '*.fna', 1)
 		statusArray.append(args.d)
 		action = 'dwnFTP'
