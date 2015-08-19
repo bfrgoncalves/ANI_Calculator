@@ -75,8 +75,8 @@ def heatmap(x, row_header, column_header, row_method,
     norm = mpl.colors.Normalize(0.90, 1.0) ### adjust the max and min to scale these colors
 
     ### Scale the Matplotlib window size
-    default_window_hight = 8.5
-    default_window_width = 12
+    default_window_hight = 20
+    default_window_width = 30
     fig = pylab.figure(figsize=(default_window_width,default_window_hight)) ### could use m,n to scale here
     color_bar_w = 0.015 ### Sufficient size to show
         
@@ -223,7 +223,7 @@ def heatmap(x, row_header, column_header, row_method,
 
     ### Render the graphic
     if len(row_header)>50 or len(column_header)>50:
-        pylab.rcParams['font.size'] = 5
+        pylab.rcParams['font.size'] = 8
     else:
         pylab.rcParams['font.size'] = 8
 
@@ -391,7 +391,7 @@ if __name__ == '__main__':
     
     ################  Default Methods ################
     row_method = 'average' #UPGMA
-    column_method = 'single'
+    column_method = 'average'
     row_metric = 'cityblock' #cosine
     column_metric = 'euclidean'
     color_gradient = 'red_white_blue'

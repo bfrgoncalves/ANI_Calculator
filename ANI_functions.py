@@ -127,11 +127,11 @@ def func_ANI_calc(InputFilesDir, comparisonToMake, method, scheduler, countCompa
 
             # Which executables are we using?
             if method == "ANIblastall":
-                blastdb_exe = formatdb_exe
-                blastn_exe = blastall_exe
+                blastdb_exe = pyani_config.FORMATDB_DEFAULT
+                blastn_exe = pyani_config.BLASTALL_DEFAULT
             else:
-                blastdb_exe = makeblastdb_exe
-                blastn_exe = blastn_exe
+                blastdb_exe = pyani_config.MAKEBLASTDB_DEFAULT
+                blastn_exe = pyani_config.BLASTN_DEFAULT
 
             # Build BLASTN databases
             cmdlist = anib.generate_blastdb_commands(infiles, outdirname,
