@@ -18,7 +18,7 @@ def main():
 
 	parser = argparse.ArgumentParser(description="This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloaded files from `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` after searching for the *DOWNLOADTOKEN*")
 	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=True)
-	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=False)
+	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=True)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
 	#parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
@@ -83,12 +83,6 @@ def cluster(args):
 	startTimeD = datetime.now()
 
 
-	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
-
-	if len(onlyfiles) == 0:
-		print 'There are no files in the ' + inputDir + 'directory.'
-		sys.exit()
-
 	ComparisonsToMake = []
 	countComparisons = 0
 	job_args = []
@@ -103,6 +97,11 @@ def cluster(args):
 				ComparisonsToMake.append(i + '--' + j)
 
 	else:
+		onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
+
+		if len(onlyfiles) == 0:
+			print 'There are no files in the ' + inputDir + 'directory.'
+			sys.exit()
 		countFiles = len(onlyfiles)
 		for i in range(0,countFiles-1):
 			for j in range(i+1, countFiles):
