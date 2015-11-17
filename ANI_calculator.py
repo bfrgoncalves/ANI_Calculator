@@ -41,7 +41,7 @@ def cluster(args):
 	allQueryBasePaths = []
 	curDir = os.getcwd()
 
-	if not args.i and not args.d:
+	if not args.i and not args.d and not args.ci and not args.ri:
 		print 'A folder with input files or a token to download from NCBI is required.'
 		sys.exit()
 	
