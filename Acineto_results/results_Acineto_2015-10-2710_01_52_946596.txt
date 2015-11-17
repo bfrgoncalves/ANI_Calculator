@@ -1,0 +1,9 @@
+Results: 
+
+Token: InputFiles/
+Download Time: 0
+Dirs checked: None
+Number of downloaded files: None
+Number of files under 1MB: None
+ANI Time: 0:01:09.544411
+Total Time: 0:01:12.266550

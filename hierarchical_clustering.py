@@ -43,7 +43,6 @@ def heatmap(x, row_header, column_header, row_method,
     This below code is based in large part on the protype methods:
     http://old.nabble.com/How-to-plot-heatmap-with-matplotlib--td32534593.html
     http://stackoverflow.com/questions/7664826/how-to-get-flat-clustering-corresponding-to-color-clusters-in-the-dendrogram-cre
-
     x is an m by n ndarray, m observations, n genes
     """
     
@@ -75,10 +74,11 @@ def heatmap(x, row_header, column_header, row_method,
     norm = mpl.colors.Normalize(0.90, 1.0) ### adjust the max and min to scale these colors
 
     ### Scale the Matplotlib window size
-    default_window_hight = 8.5
-    default_window_width = 12
+    default_window_hight = 50
+    default_window_width = 50
     fig = pylab.figure(figsize=(default_window_width,default_window_hight)) ### could use m,n to scale here
     color_bar_w = 0.015 ### Sufficient size to show
+    
         
     ## calculate positions for all elements
     # ax1, placement of dendrogram 1, on the left of the heatmap
@@ -163,24 +163,30 @@ def heatmap(x, row_header, column_header, row_method,
     axm.set_xticks([]) ### Hides x-ticks
     axm.set_yticks([])
 
+
     # Add text
     new_row_header=[]
     new_column_header=[]
     for i in range(x.shape[0]):
+        if len(row_header)<50:
+            fontsize = 10
+        else:
+            fontsize = 10
         if row_method != None:
-            if len(row_header)<100: ### Don't visualize gene associations when more than 100 rows
-                axm.text(x.shape[1]-0.5, i, '  '+row_header[idx1[i]])
+            #if len(row_header)<100: ### Don't visualize gene associations when more than 100 rows
+
+            axm.text(x.shape[1]-0.5, i, '  '+row_header[idx1[i]], fontsize = fontsize)
             new_row_header.append(row_header[idx1[i]])
         else:
-            if len(row_header)<100: ### Don't visualize gene associations when more than 100 rows
-                axm.text(x.shape[1]-0.5, i, '  '+row_header[i]) ### When not clustering rows
+            #if len(row_header)<100: ### Don't visualize gene associations when more than 100 rows
+            axm.text(x.shape[1]-0.5, i, '  '+row_header[i], fontsize = fontsize) ### When not clustering rows
             new_row_header.append(row_header[i])
     for i in range(x.shape[1]):
         if column_method != None:
-            axm.text(i, -0.9, ' '+column_header[idx2[i]], rotation=270, verticalalignment="top") # rotation could also be degrees
+            axm.text(i, -0.9, ' '+column_header[idx2[i]], rotation=270, verticalalignment="top", fontsize = fontsize) # rotation could also be degrees
             new_column_header.append(column_header[idx2[i]])
         else: ### When not clustering columns
-            axm.text(i, -0.9, ' '+column_header[i], rotation=270, verticalalignment="top")
+            axm.text(i, -0.9, ' '+column_header[i], rotation=270, verticalalignment="top", fontsize = fontsize)
             new_column_header.append(column_header[i])
 
     # Plot colside colors
@@ -223,7 +229,7 @@ def heatmap(x, row_header, column_header, row_method,
 
     ### Render the graphic
     if len(row_header)>50 or len(column_header)>50:
-        pylab.rcParams['font.size'] = 5
+        pylab.rcParams['font.size'] = 8
     else:
         pylab.rcParams['font.size'] = 8
 
@@ -391,8 +397,8 @@ if __name__ == '__main__':
     
     ################  Default Methods ################
     row_method = 'average' #UPGMA
-    column_method = 'single'
-    row_metric = 'cityblock' #cosine
+    column_method = 'average'
+    row_metric = 'euclidean' #cosine
     column_metric = 'euclidean'
     color_gradient = 'red_white_blue'
     
