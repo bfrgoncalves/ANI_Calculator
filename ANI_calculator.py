@@ -138,16 +138,29 @@ def cluster(args):
 
 
 	finalResults = []
-	finalResults.append([str(x.split('.')[0]) for x in onlyfiles])
 
-	for i in onlyfiles:
-		toAppend = []
-		toAppend.append(i.split('.')[0])
-		for j in onlyfiles:
-			tocheck1 = i.split('.')[0]
-			tocheck2 = j.split('.')[0]
-			toAppend.append(dictOfResults[tocheck1][0][tocheck2])
-		finalResults.append(toAppend)
+	if args.ci and args.ri:
+		finalResults.append([str(x.split('.')[0]) for x in columnonlyfiles])
+
+		for i in rowonlyfiles:
+			toAppend = []
+			toAppend.append(i.split('.')[0])
+			for j in columnonlyfiles:
+				tocheck1 = i.split('.')[0]
+				tocheck2 = j.split('.')[0]
+				toAppend.append(dictOfResults[tocheck1][0][tocheck2])
+			finalResults.append(toAppend)
+	else:
+		finalResults.append([str(x.split('.')[0]) for x in onlyfiles])
+
+		for i in onlyfiles:
+			toAppend = []
+			toAppend.append(i.split('.')[0])
+			for j in onlyfiles:
+				tocheck1 = i.split('.')[0]
+				tocheck2 = j.split('.')[0]
+				toAppend.append(dictOfResults[tocheck1][0][tocheck2])
+			finalResults.append(toAppend)
 
 	if not os.path.isdir(args.o):
 		os.makedirs(args.o)
