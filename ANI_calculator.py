@@ -18,11 +18,13 @@ def main():
 
 	parser = argparse.ArgumentParser(description="This program performs a given ANI method (ANIb or ANIm) on a set of input files or downloaded files from `ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/` after searching for the *DOWNLOADTOKEN*")
 	parser.add_argument('-n', nargs='?', type=str, help="Results identifier", required=True)
-	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=True)
+	parser.add_argument('-i', nargs='?', type=str, help="Repository for fasta files", required=False)
 	parser.add_argument('-d', nargs='?', type=str, help="Token to download from NCBI/Bacteria", required=False)
 	#parser.add_argument('-s', nargs='?', type=bool, help="Directory for downloaded data", required=False)
 	parser.add_argument('-o', nargs='?', type=str, help='Destination folder', required=True)
 	parser.add_argument('-t', nargs='?', type=str, help="type of ANI (ANIm or ANIb)", required=True)
+	parser.add_argument('-ci', nargs='?', type=str, help="column input files", required=False)
+	parser.add_argument('-ri', nargs='?', type=str, help="row input files", required=False)
 
 	args = parser.parse_args()
 
@@ -80,6 +82,7 @@ def cluster(args):
 	timeDownload = datetime.now() - startTime
 	startTimeD = datetime.now()
 
+
 	onlyfiles = [ f for f in listdir(inputDir) if isfile(join(inputDir,f)) ]
 
 	if len(onlyfiles) == 0:
@@ -91,10 +94,19 @@ def cluster(args):
 	job_args = []
 	allQueryBasePaths = []
 
-	countFiles = len(onlyfiles)
-	for i in range(0,countFiles-1):
-		for j in range(i+1, countFiles):
-			ComparisonsToMake.append(onlyfiles[i] + '--' + onlyfiles[j])
+	if args.ci and args.ri:
+		columnonlyfiles = [ f for f in listdir(args.ci) if isfile(join(args.ci,f)) ]
+		rowonlyfiles = [ f for f in listdir(args.ri) if isfile(join(args.ri,f)) ]
+
+		for i in columnonlyfiles:
+			for j in rowonlyfiles:
+				ComparisonsToMake.append(i + '--' + j)
+
+	else:
+		countFiles = len(onlyfiles)
+		for i in range(0,countFiles-1):
+			for j in range(i+1, countFiles):
+				ComparisonsToMake.append(onlyfiles[i] + '--' + onlyfiles[j])
 
 	for comparison in ComparisonsToMake:
 		countComparisons += 1
